@@ -14,10 +14,11 @@ def my_form():
 def camcalci():
 	if(request.method=="POST"):
 		camimage = request.form['input-id']
-		
+		data = camimage[22:]
+		camimage = data.encode('ascii')
 		#print(camimage)
 		# camimg = Image.fromstring('RGB',(150,100),decodestring(camimage))
-		target = pytesseract.image_to_string(base64.decodebytes(camimage), lang='eng', boxes=False,config='--psm 10 --oem 3 -c tessedit_char_whitelist=0123456789')
+		target = pytesseract.image_to_string(base64.decodestring(camimage), lang='eng',config='--psm 1000')
 		return render_template('index.html',camtext = target)
 
 # @app.route('/login',methods=['POST'])
