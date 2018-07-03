@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>CamCalci- A camera calculator</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <h2>Upload your mathematical equation</h2>
+  <form id="form" action="/calculate" method="POST" >
+    <div class="form-group">
+      <label for="eqn">Upload here</label>
+        <input type="file" accept="image/*" name="camimage" id="camimage"  onchange="encodeImageFileAsURL();">
+        <input id="input-id" name="input-id"  type="hidden" value="">
+    </div>
+
+    <button type="submit" class="btn btn-default">Submit</button>
+  </form>
+  <div class="container"><p> {{camtext}} </p>  </div>
+</div>
+<script type='text/javascript'>
+  function encodeImageFileAsURL() {
+
+    var filesSelected = document.getElementById("camimage").files;
+    if (filesSelected.length > 0) {
+      var fileToLoad = filesSelected[0];
+
+      var fileReader = new FileReader();
+
+      fileReader.onload = function(fileLoadedEvent) {
+        var srcData = fileLoadedEvent.target.result; // <--- data: base64
+
+        document.getElementById("input-id").value = srcData;
+         //console.log(srcData);
+      }
+      fileReader.readAsDataURL(fileToLoad);
+    }
+  }
+</script>
+</body>
+</html>
